@@ -1,0 +1,46 @@
+tools:
+  noweb - brew install noweb
+  latex - install big mactex
+instruction:
+  noweb aiyawocao.nw
+  replace \_ and other latex key ops after noweb output the thing to tex
+  latex aiyawocao.tex
+
+moodle 1.9 email mod preference page:
+
+<<noti_pref_page.php>>=
+  <?php
+  <<moodle libs>>
+  ?>
+  <<form>>
+@
+
+moodle 1.9 requires:
+
+<<moodle libs>>=
+  require_once("../../config.php");
+  require_once("lib.php");
+  require_once("locallib.php");
+@
+
+ignoring uploadlib.php and filelib.php for now.
+html form:
+
+<<form>>=
+  <form name="formmessages" method="POST" action="noti_handle.php">
+    <input type="radio" name="notify" value="true" />Notify me new course mail by email
+    <input type="radio" name="notify" value="false" />Dont't notify me new course mail by email
+    <inptu type="sbumit" value="Submit" />
+  </form>
+@
+ 
+lastly, we will need a shell script to generated the noweb files:
+
+<<compile.sh>>=
+  noweave -x aiyawocao.nw > latex/aiyawocao.tex
+  notangle -Rnoti_pref_page.php aiyawocao.nw > src/noti_pref_page.php
+  notangle -Rcompile.sh aiyawocao.nw > compile.sh 
+@
+
+of couse you need to run this to get the shell script out:
+  notangle -Rcompile.sh aiyawocao.nw > compile.sh 

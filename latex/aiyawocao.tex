@@ -1,0 +1,54 @@
+\documentclass{article}\usepackage{noweb}\pagestyle{noweb}\noweboptions{}\begin{document}\nwfilename{aiyawocao.nw}\nwbegindocs{0}tools:
+  noweb - brew install noweb
+  latex - install big mactex
+instruction:
+  noweb aiyawocao.nw
+  replace \_ and other latex key ops after noweb output the thing to tex
+  latex aiyawocao.tex
+
+moodle 1.9 email mod preference page:
+
+\nwenddocs{}\nwbegincode{1}\sublabel{NWaiyC-notI-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWaiyC-notI-1}}}\moddef{noti_pref_page.php~{\nwtagstyle{}\subpageref{NWaiyC-notI-1}}}\endmoddef
+  <?php
+  \LA{}moodle libs~{\nwtagstyle{}\subpageref{NWaiyC-mooB-1}}\RA{}
+  ?>
+  \LA{}form~{\nwtagstyle{}\subpageref{NWaiyC-for4-1}}\RA{}
+\nwnotused{noti{\char95}pref{\char95}page.php}\nwendcode{}\nwbegindocs{2}\nwdocspar
+
+moodle 1.9 requires:
+
+\nwenddocs{}\nwbegincode{3}\sublabel{NWaiyC-mooB-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWaiyC-mooB-1}}}\moddef{moodle libs~{\nwtagstyle{}\subpageref{NWaiyC-mooB-1}}}\endmoddef
+  require_once("../../config.php");
+  require_once("lib.php");
+  require_once("locallib.php");
+\nwused{\\{NWaiyC-notI-1}}\nwendcode{}\nwbegindocs{4}\nwdocspar
+
+ignoring uploadlib.php and filelib.php for now.
+html form:
+
+\nwenddocs{}\nwbegincode{5}\sublabel{NWaiyC-for4-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWaiyC-for4-1}}}\moddef{form~{\nwtagstyle{}\subpageref{NWaiyC-for4-1}}}\endmoddef
+  <form name="formmessages" method="POST" action="noti_handle.php">
+    <input type="radio" name="notify" value="true" />Notify me new course mail by email
+    <input type="radio" name="notify" value="false" />Dont't notify me new course mail by email
+    <inptu type="sbumit" value="Submit" />
+  </form>
+\nwused{\\{NWaiyC-notI-1}}\nwendcode{}\nwbegindocs{6}\nwdocspar
+ 
+lastly, we will need a shell script to generated the noweb files:
+
+\nwenddocs{}\nwbegincode{7}\sublabel{NWaiyC-comA-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWaiyC-comA-1}}}\moddef{compile.sh~{\nwtagstyle{}\subpageref{NWaiyC-comA-1}}}\endmoddef
+  noweave -x aiyawocao.nw > latex/aiyawocao.tex
+  notangle -Rnoti_pref_page.php aiyawocao.nw > src/noti_pref_page.php
+  notangle -Rcompile.sh aiyawocao.nw > compile.sh 
+\nwnotused{compile.sh}\nwendcode{}\nwbegindocs{8}\nwdocspar
+
+of couse you need to run this to get the shell script out:
+  notangle -Rcompile.sh aiyawocao.nw > compile.sh 
+\nwenddocs{}
+
+\nwixlogsorted{c}{{compile.sh}{NWaiyC-comA-1}{\nwixd{NWaiyC-comA-1}}}%
+\nwixlogsorted{c}{{form}{NWaiyC-for4-1}{\nwixu{NWaiyC-notI-1}\nwixd{NWaiyC-for4-1}}}%
+\nwixlogsorted{c}{{moodle libs}{NWaiyC-mooB-1}{\nwixu{NWaiyC-notI-1}\nwixd{NWaiyC-mooB-1}}}%
+\nwixlogsorted{c}{{noti_pref_page.php}{NWaiyC-notI-1}{\nwixd{NWaiyC-notI-1}}}%
+\end{document}
+
