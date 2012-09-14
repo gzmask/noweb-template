@@ -2,8 +2,10 @@ tools:
   noweb - brew install noweb
   latex - install big mactex
 instruction:
-  noweb aiyawocao.nw
+  notangle -Rcompile.sh aiyawocao.nw > compile.sh 
+  sh compile.sh
   replace \_ and other latex key ops after noweb output the thing to tex
+  cd latex
   latex aiyawocao.tex
 
 moodle 1.9 email mod preference page:
@@ -39,8 +41,4 @@ lastly, we will need a shell script to generated the noweb files:
 <<compile.sh>>=
   noweave -x aiyawocao.nw > latex/aiyawocao.tex
   notangle -Rnoti_pref_page.php aiyawocao.nw > src/noti_pref_page.php
-  notangle -Rcompile.sh aiyawocao.nw > compile.sh 
 @
-
-of couse you need to run this to get the shell script out:
-  notangle -Rcompile.sh aiyawocao.nw > compile.sh 
