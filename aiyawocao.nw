@@ -1,33 +1,67 @@
-tools:
-  noweb - brew install noweb
-  latex - install big mactex
-instruction:
-  notangle -Rcompile.sh aiyawocao.nw > compile.sh 
-  sh compile.sh
-  replace \_ and other latex key ops after noweb output the thing to tex
-  cd latex
-  latex aiyawocao.tex
+\title{my title}
+\author{
+        gzmask\\
+	Department of Computer Science\\
+        University of Regina\\
+        Regina, Saskatchewan, S4S0A2, Canada
+}
+\date{\today}
 
+\documentclass[12pt]{article}
+\setlength{\parindent}{0in}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{parskip}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+this is the abstract
+\end{abstract}
+
+\section{pre works}
+tools required:\\
+  noweb - brew install noweb\\
+  latex - install big mactex\\
+
+instruction:\\
+\begin{verbatim}
+  notangle -Rcompile.sh aiyawocao.nw > compile.sh \\
+  sh compile.sh\\
+  replace \_ and other latex key ops after noweb output the thing to tex\\
+  cd latex\\
+  latex aiyawocao.tex\\
+\end{verbatim}
+
+\section{code}
+
+\subsection{php file}
 moodle 1.9 email mod preference page:
-
-<<noti_pref_page.php>>=
+\begin{verbatim}
+<<src/noti_pref_page.php>>=
   <?php
   <<moodle libs>>
   ?>
   <<form>>
 @
+\end{verbatim}
 
+\subsection{header}
 moodle 1.9 requires:
-
+\begin{verbatim}
 <<moodle libs>>=
   require_once("../../config.php");
   require_once("lib.php");
   require_once("locallib.php");
 @
+\end{verbatim}
 
-ignoring uploadlib.php and filelib.php for now.
+\subsection{form}
+ignoring uploadlib.php and filelib.php for now.\\
 html form:
-
+\begin{verbatim}
 <<form>>=
   <form name="formmessages" method="POST" action="noti_handle.php">
     <input type="radio" name="notify" value="true" />Notify me new course mail by email
@@ -35,10 +69,37 @@ html form:
     <inptu type="sbumit" value="Submit" />
   </form>
 @
+\end{verbatim}
  
-lastly, we will need a shell script to generated the noweb files:
-
+\subsection{shell script}
+lastly, we will need a shell script to generated the noweb files, with -t option to supress latex output:
+\begin{verbatim}
 <<compile.sh>>=
-  noweave -x aiyawocao.nw > latex/aiyawocao.tex
-  notangle -Rnoti_pref_page.php aiyawocao.nw > src/noti_pref_page.php
+  cp aiyawocao.nw latex/aiyawocao.tex
+  noweb -t aiyawocao.nw
 @
+\end{verbatim}
+
+\subsection{README}
+\begin{verbatim}
+<<README.md>>=
+##
+this is noweb template that i use
+##
+first thing to notice is that noweb generates un-escape latex sensetive chars such as '\_' etc. After generation, those chars need to be removed manually.
+@
+\end{verbatim}
+
+\begin{thebibliography}{9}
+
+\bibitem{tem}
+  First. Last,
+  \emph{essay title}.
+  ISBN 0-000-00000-0,
+  Publisher, Inc.
+  Edition,
+  year.
+
+\end{thebibliography}
+
+\end{document}
